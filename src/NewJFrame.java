@@ -377,25 +377,25 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * performs best possible move, based on current board state using minimaxing algorithm
      */
-    public void bestMove(){
+    public void bestMove(){         //figures out best posible move for ai through the minmax algorythm
         int bestScore = -999999;
         int tempScore;
         int finalMove = 0;
 
-        for(int i = 0; i < 9; i++){
-            if(board[i] == 0){
-                board[i] = O;
-                tempScore = minmax(board, false);
-                board[i] = 0;
+        for(int i = 0; i < 9; i++){ //runs for every space on the board
+            if(board[i] == 0){      //skips all ocupied spaces
+                board[i] = O;       //marks a space, making a possible move
+                tempScore = minmax(board, false);   //calls the minimax algorythm, feeding it the posible move, and who makes the next move
+                board[i] = 0;                       //the board is set to its state before the algorythm testet a possible move
                 
-                if(tempScore > bestScore){
+                if(tempScore > bestScore){          //the algorythms final move is determined, based on the minimax algorythms highest scored move
                     bestScore = tempScore;
                     finalMove = i;
                 }
             }
         }
-        //træls men gider ikke ellers :c
-        switch(finalMove){
+
+        switch(finalMove){  //final move is made (tried making an array of the buttons, but did not work)
             case 0:
                 b0.doClick();
                 break;
@@ -433,28 +433,28 @@ public class NewJFrame extends javax.swing.JFrame {
      * @param isMaxing
      * @return score of branch
      */
-    public int minmax(int[] tempBoard, boolean isMaxing){
-        int result = checkWin();
-        if (result != 69) return result;
+    public int minmax(int[] tempBoard, boolean isMaxing){   //returns the score of possible branches in minimax tree
+        int result = checkWin();            //the algorythm checks, if the move it has recieved is a terminal move(final move)
+        if (result != 69) return result;    //the score of the move is returned if it is terminal
         
-        if(isMaxing){
-            int bestScore = -99999;
-            for(int i = 0; i < 9; i++){
+        if(isMaxing){                       //it is determined what player makes the move(maxing player is ai)
+            int bestScore = -99999;         //the varible is inisialized
+            for(int i = 0; i < 9; i++){     //pretty much the same as in 'bestMove()' funktion
                 if(board[i] == 0){
                     board[i] = O;
-                    result = minmax(board, false);
+                    result = minmax(board, false);  //variable 'isMaxing' set to false, as player is makiing next move
                     board[i] = 0;
                     bestScore = Math.max(result, bestScore);
                 }
             }
             return bestScore;
         }
-        else{
+        else{                               //a simple 'else' as human player is only other option
             int bestScore = 99999;
             for(int i = 0; i < 9; i++){
                 if(board[i] == 0){
                     board[i] = X;
-                    result = minmax(board, true);
+                    result = minmax(board, true);   //variable 'isMaxing' set to true, as ai is making next move
                     board[i] = 0;
                     bestScore = Math.min(result, bestScore);
                 }
