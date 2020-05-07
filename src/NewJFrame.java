@@ -429,7 +429,6 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * 
      * @param tempBoard
-     * @param depth
      * @param isMaxing
      * @return score of branch
      */
