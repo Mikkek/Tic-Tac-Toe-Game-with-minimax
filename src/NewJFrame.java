@@ -3,7 +3,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Mikkel
+ * @author Mikkel, ericvdb
  */
 
 public class NewJFrame extends javax.swing.JFrame {
